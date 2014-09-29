@@ -31,7 +31,7 @@ specified version.
   fi
   
   if [[ ! -f "$file.tar.gz" ]]; then
-    if ! wget -q "http://wordpress.org/$file.tar.gz"; then
+    if ! wget -q "http://wordpress.org/$file.tar.gz" --no-check-certificate; then
       echo "Unable to download $file.tar.gz"!
       return 9
     else echo "Downloaded $file.tar.gz..."
