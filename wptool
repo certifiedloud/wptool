@@ -31,7 +31,7 @@ specified version.
   fi
   
   if [[ ! -f "$file.tar.gz" ]]; then
-    if ! wget -q "https://wordpress.org/$file.tar.gz"; then
+    if ! wget -q "http://wordpress.org/$file.tar.gz"; then
       echo "Unable to download $file.tar.gz"!
       return 9
     else echo "Downloaded $file.tar.gz..."
@@ -347,21 +347,21 @@ function wpuser() {
     return
   elif [[ ! -f wp-config.php ]]; then echo Could not find wp-config.php! && return 9
   fi
-  if [[ -z $1 ]]; then wpconn "wpuser"﻿  ﻿  ﻿  ﻿  #list users
-  elif [[ $1 == "-q" ]]; then wpconn "wpuser1"﻿  ﻿  ﻿  #list first user
-  elif [[ $1 =~ ^[0-9]+$ ]]; then﻿  ﻿  ﻿  ﻿  #if a number...
-    if [[ $2 == "-p" ]]; then﻿  ﻿  ﻿  ﻿  ﻿    #change password...
-      if [[ -n $3 ]]; then wpconn "wpuserp" $1 "$3"﻿  ﻿      #...if one is specified...
+  if [[ -z $1 ]]; then wpconn "wpuser"				#list users
+  elif [[ $1 == "-q" ]]; then wpconn "wpuser1"			#list first user
+  elif [[ $1 =~ ^[0-9]+$ ]]; then				#if a number...
+    if [[ $2 == "-p" ]]; then					  #change password...
+      if [[ -n $3 ]]; then wpconn "wpuserp" $1 "$3"		    #...if one is specified...
       else echo -e "\tNo password specified"!"\n" && return 1; fi   #...otherwise, end.
-    elif [[ $2 == "-u" ]]; then﻿  ﻿  ﻿  ﻿  ﻿    #change username...
-      if [[ -n $3 ]]; then wpconn "wpuseru" $1 "$3"﻿  ﻿      #...if one is specified...
+    elif [[ $2 == "-u" ]]; then					  #change username...
+      if [[ -n $3 ]]; then wpconn "wpuseru" $1 "$3"		    #...if one is specified...
       else echo -e "\tNo username specified"!"\n" && return 1; fi   #...otherwise, end.
-    elif [[ $2 == "-a" ]]; then wpconn "wpusera" $1﻿   ﻿    #change to admin
-    elif [[ $2 == "-d" ]]; then read -p "$(echo $'\t')Delete user '$1'? " -n 1 -r && echo && [[ ! $REPLY =~ ^[Yy]$ ]] && echo -e "\tDeletion of user '$1' cancelled"!"\n" && return 1 || wpconn "wpuserd" $1﻿   ﻿    #delete user
-    elif [[ -z $2 ]]; then wpconn "wpuserinfo" $1﻿  ﻿    #show user info
-    else echo -e "\tInvalid option"!"\n" && return 1; fi﻿  ﻿    #Otherwise, end.
-  elif [[ $1 == "new" || $1 == "-n" ]]; then wpconn "wpusernew"﻿  ﻿  #create new admin...
-  else echo -e "\tInvalid option"!"\n" && return 1; fi﻿  ﻿  #Otherwise, end.
+    elif [[ $2 == "-a" ]]; then wpconn "wpusera" $1	 	  #change to admin
+    elif [[ $2 == "-d" ]]; then read -p "$(echo $'\t')Delete user '$1'? " -n 1 -r && echo && [[ ! $REPLY =~ ^[Yy]$ ]] && echo -e "\tDeletion of user '$1' cancelled"!"\n" && return 1 || wpconn "wpuserd" $1	 	  #delete user
+    elif [[ -z $2 ]]; then wpconn "wpuserinfo" $1		  #show user info
+    else echo -e "\tInvalid option"!"\n" && return 1; fi		  #Otherwise, end.
+  elif [[ $1 == "new" || $1 == "-n" ]]; then wpconn "wpusernew"		#create new admin...
+  else echo -e "\tInvalid option"!"\n" && return 1; fi		#Otherwise, end.
   if [[ $myconn == "" ]]; then echo -e "\tUser not found"!
   elif [[ $myconn != "ERROR"* ]]; then
     if [[ -z $1 ]]; then echo -e "$myconn" | tail -n +2 | awk '{print "\t"$1":\t"$2}'
